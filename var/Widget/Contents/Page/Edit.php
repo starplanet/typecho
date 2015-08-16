@@ -71,6 +71,7 @@ class Widget_Contents_Page_Edit extends Widget_Contents_Post_Edit implements Wid
         $contents = $this->request->from('text', 'template', 'allowComment',
             'allowPing', 'allowFeed', 'slug', 'order', 'visibility');
 
+        $contents['category'] = $this->request->getArray('category');
         $contents['title'] = $this->request->get('title', _t('未命名页面'));
         $contents['created'] = $this->getCreated();
         $contents['visibility'] = ('hidden' == $contents['visibility'] ? 'hidden' : 'publish');

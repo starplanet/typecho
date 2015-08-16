@@ -70,6 +70,24 @@ Typecho_Widget::widget('Widget_Contents_Page_Edit')->to($page);
                             <p class="description"><?php _e('为你的自定义页面设定一个序列值以后, 能够使得它们按此值从小到大排列'); ?></p>
                         </section>
 
+                        <section class="typecho-post-option category-option">
+                            <label class="typecho-label"><?php _e('分类'); ?></label>
+                            <?php Typecho_Widget::widget('Widget_Metas_Category_List')->to($category); ?>
+                            <ul>
+                                <?php
+                                if ($page->have()) {
+                                    $categories = Typecho_Common::arrayFlatten($post->categories, 'mid');
+                                } else {
+                                    $categories = array();
+                                }
+                                ?>
+                                <?php while($category->next()): ?>
+                                    <li><?php echo str_repeat('&nbsp;&nbsp;&nbsp;&nbsp;', $category->levels); ?><input type="checkbox" id="category-<?php $category->mid(); ?>" value="<?php $category->mid(); ?>" name="category[]" <?php if(in_array($category->mid, $categories)): ?>checked="true"<?php endif; ?>/>
+                                        <label for="category-<?php $category->mid(); ?>"><?php $category->name(); ?></label></li>
+                                <?php endwhile; ?>
+                            </ul>
+                        </section>
+
                         <section  class="typecho-post-option">
                             <label for="template" class="typecho-label"><?php _e('自定义模板'); ?></label>
                                 <p>

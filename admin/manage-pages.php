@@ -38,8 +38,9 @@ $stat = Typecho_Widget::widget('Widget_Stat');
                         <colgroup>
                             <col width="20"/>
                             <col width="6%"/>
-                            <col width="30%"/>
-                            <col width="30%"/>
+                            <col width="20%"/>
+                            <col width="20%"/>
+                            <col width="20%"/>
                             <col width=""/>
                             <col width="16%"/>
                         </colgroup>
@@ -50,6 +51,7 @@ $stat = Typecho_Widget::widget('Widget_Stat');
                                 <th><?php _e('标题'); ?></th>
                                 <th><?php _e('缩略名'); ?></th>
                                 <th><?php _e('作者'); ?></th>
+                                <th><?php _e('分类'); ?></th>
                                 <th><?php _e('日期'); ?></th>
                             </tr>
                         </thead>
@@ -75,6 +77,15 @@ $stat = Typecho_Widget::widget('Widget_Stat');
                                 </td>
                                 <td><?php $pages->slug(); ?></td>
                                 <td><?php $pages->author(); ?></td>
+                                <td><?php $categories = $pages->categories; $length = count($categories); ?>
+                                    <?php foreach ($categories as $key => $val): ?>
+                                        <?php echo '<a href="';
+                                        $options->adminUrl('manage-posts.php?category=' . $val['mid']
+                                            . (isset($request->uid) ? '&uid=' . $request->uid : '')
+                                            . (isset($request->status) ? '&status=' . $request->status : ''));
+                                        echo '">' . $val['name'] . '</a>' . ($key < $length - 1 ? ', ' : ''); ?>
+                                    <?php endforeach; ?>
+                                </td>
                                 <td>
                                 <?php if ($pages->hasSaved): ?>
                                 <span class="description">
