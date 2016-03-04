@@ -5,8 +5,8 @@ php:
   - 5.5
   - 5.4
   - 5.3
-  - 5.2
   - hhvm
+  - nightly
 
 script: cd ./tools/ && set -e && make test
 
